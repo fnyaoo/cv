@@ -14,6 +14,9 @@ import {CommandIcon} from "lucide-react";
 import {UIText} from "../data/UIText";
 import {Language} from "../App";
 
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { DialogTitle } from "@radix-ui/react-dialog";
+
 interface Props {
     links: { url: string; title: string }[];
 }
@@ -54,9 +57,12 @@ export const CommandMenu = ({links}: Props) => {
                 <CommandIcon className="my-6 size-6"/>
             </Button>
             <CommandDialog open={open} onOpenChange={setOpen}>
+                <VisuallyHidden>
+                    <DialogTitle>{UIText["commandMenu"]["title"][language]}</DialogTitle>
+                </VisuallyHidden>
                 <CommandInput placeholder={UIText["commandMenu"]["searchPlaceholder"][language]}/>
                 <CommandList>
-                    <CommandEmpty>No results found.</CommandEmpty>
+                    <CommandEmpty>{UIText["commandMenu"]["noSearchResults"][language]}</CommandEmpty>
                     <CommandGroup heading={UIText["commandMenu"]["actions"][language]}>
                         <CommandItem
                             onSelect={() => {

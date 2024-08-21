@@ -1,5 +1,5 @@
 import {Tretyakov, photo} from "../images/";
-import {GitHubIcon} from "../components/icons";
+import {GitHubIcon, TelegramIcon} from "../components/icons";
 import React from "react";
 
 interface LocalizedString {
@@ -92,8 +92,13 @@ export const RESUME_DATA: ResumeData = {
     personalWebsiteUrl: "https://fnyaoo.com",
     contact: {
         email: "fnyaoo@gmail.com",
-        tel: "+79997234546",
+        tel: "",
         social: [
+            {
+                name: "Telegram",
+                url: "https://t.me/fnyaoo",
+                icon: TelegramIcon,
+            },
             {
                 name: "GitHub",
                 url: "https://github.com/fnyaoo",

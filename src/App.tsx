@@ -55,7 +55,7 @@ function App() {
                                     asChild
                                 >
                                     <a href={`mailto:${RESUME_DATA.contact.email}`}>
-                                        <MailIcon className="size-4"/>
+                                        <MailIcon className="size-6 text-black"/>
                                     </a>
                                 </Button>
                             ) : null}
@@ -80,7 +80,7 @@ function App() {
                                     asChild
                                 >
                                     <a href={social.url}>
-                                        <social.icon className="size-4"/>
+                                        <social.icon className="size-6"/>
                                     </a>
                                 </Button>
                             ))}
@@ -224,7 +224,7 @@ function App() {
 
 
             <Button
-                className="fixed language_button font-bold py-2 px-2 rounded-full shadow-lg cursor-pointer"
+                className="fixed language_button font-bold py-2 px-2 rounded-full shadow-lg cursor-pointer print:hidden"
                 variant="outline"
                 size="icon"
                 asChild

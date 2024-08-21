@@ -12,7 +12,7 @@ export const UIText = {
         en: "Education"
     },
     skills: {
-        ru: "Умения",
+        ru: "Навыки",
         en: "Skills"
     },
     projects: {
@@ -36,6 +36,10 @@ export const UIText = {
             ru: "Введите команду или текст...",
             en: "Type a command or search..."
         },
+        noSearchResults: {
+            ru: "Ничего не найдено.",
+            en: "No results found."
+        },
         actions: {
             ru: "Действия",
             en: "Actions"
@@ -47,6 +51,10 @@ export const UIText = {
         links: {
             ru: "Ссылки",
             en: "Links"
+        },
+        title: {
+            ru: "Меню",
+            en: "Menu"
         }
     }
 };

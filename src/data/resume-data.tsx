@@ -161,7 +161,7 @@ export const RESUME_DATA: ResumeData = {
     ],
     projects: [
         {
-            title: "Music Migrator",
+            title: "Sync Sound",
             techStack: ["TypeScript", "Node.js", "Nest.js", "React", "Spotify API", "YandexMusic API", "SoundCloud API"],
             description: {
                 ru: "Перенос музыки из разных сервисов в Spotify",
@@ -170,7 +170,7 @@ export const RESUME_DATA: ResumeData = {
             logo: "",
             link: {
                 label: "",
-                href: "https://fnyaoo.com/music",
+                href: "https://fnyaoo.com/syncsound",
             },
 
         },

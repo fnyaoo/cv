@@ -1,30 +1,66 @@
-import React from 'react';
-import './App.css';
-import {RESUME_DATA} from "./data/resume-data";
-import {GlobeIcon, MailIcon, PhoneIcon, Globe} from "lucide-react";
-import {Button} from "./components/ui/button";
-import {Avatar, AvatarFallback, AvatarImage} from "./components/ui/avatar";
-import {Section} from './components/ui/section';
-import {Card, CardContent, CardHeader} from './components/ui/card';
-import {Badge} from "./components/ui/badge";
-import {CommandMenu} from "./components/command-menu";
-import {ProjectCard} from "./components/project-card";
-import {UIText} from "./data/UIText";
+import { Globe, GlobeIcon, MailIcon, PhoneIcon } from "lucide-react"
+import React from 'react'
+import './App.css'
+import { CommandMenu } from "./components/command-menu"
+import { ProjectCard } from "./components/project-card"
+import { Avatar, AvatarFallback, AvatarImage } from "./components/ui/avatar"
+import { Badge } from "./components/ui/badge"
+import { Button } from "./components/ui/button"
+import { Card, CardContent, CardHeader } from './components/ui/card'
+import { Section } from './components/ui/section'
+import Months from './data/Months'
+import { RESUME_DATA, WorkExperienceDate } from "./data/resume-data"
+import { UIText } from "./data/UIText"
 
-export type Language = "ru" | "en";
+export type Language = "ru" | "en"
 
 function App() {
     if (!localStorage.getItem('lang')) {
-        localStorage.setItem('lang', navigator.language === "ru-RU" ? "ru" : "en");
+        localStorage.setItem('lang', navigator.language === "ru-RU" ? "ru" : "en")
     }
 
-    const [language, setLanguage] = React.useState<Language>(localStorage.getItem('lang') as Language || "en");
+    const [language, setLanguage] = React.useState<Language>(localStorage.getItem('lang') as Language || "en")
 
     const switchLanguage = () => {
-        const newLanguage: Language = language === "ru" ? "en" : "ru";
-        localStorage.setItem('lang', newLanguage);
-        setLanguage(newLanguage);
-    };
+        const newLanguage: Language = language === "ru" ? "en" : "ru"
+        localStorage.setItem('lang', newLanguage)
+        setLanguage(newLanguage)
+    }
+
+    const calculateWorkTime = (start: WorkExperienceDate, end: WorkExperienceDate | null): string => {
+        const currentDate = end || { month: new Date().getMonth() + 1, year: new Date().getFullYear() }
+
+        const yearsDifference = currentDate.year - start.year
+        const monthsDifference = currentDate.month - start.month
+
+        let totalYears = yearsDifference
+        let totalMonths = monthsDifference
+
+        if (monthsDifference < 0) {
+            totalYears -= 1
+            totalMonths += 12
+        }
+
+        let yearLabel: string
+        let monthLabel: string
+        let conjunction: string
+
+        if (language === 'en') {
+            yearLabel = totalYears === 1 ? 'year' : 'years'
+            monthLabel = totalMonths === 1 ? 'month' : 'months'
+            conjunction = 'and'
+        } else {
+            yearLabel = totalYears === 1 ? 'год' : totalYears > 1 && totalYears < 5 ? 'года' : 'лет'
+            monthLabel = totalMonths === 1 ? 'месяц' : totalMonths > 1 && totalMonths < 5 ? 'месяца' : 'месяцев'
+            conjunction = 'и'
+        }
+
+        if (totalMonths === 0) {
+            return `${totalYears} ${yearLabel}`
+        }
+
+        return `${totalYears} ${yearLabel} ${conjunction} ${totalMonths} ${monthLabel}`
+    }
 
     return (
         <main className="container relative mx-auto scroll-my-12 overflow-auto p-4 print:p-12 md:p-16">
@@ -42,7 +78,7 @@ function App() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                <GlobeIcon className="size-3"/>
+                                <GlobeIcon className="size-3" />
                                 {RESUME_DATA.location[language]}
                             </a>
                         </p>
@@ -55,7 +91,7 @@ function App() {
                                     asChild
                                 >
                                     <a href={`mailto:${RESUME_DATA.contact.email}`}>
-                                        <MailIcon className="size-6 text-black"/>
+                                        <MailIcon className="size-6 text-black" />
                                     </a>
                                 </Button>
                             ) : null}
@@ -67,7 +103,7 @@ function App() {
                                     asChild
                                 >
                                     <a href={`tel:${RESUME_DATA.contact.tel}`}>
-                                        <PhoneIcon className="size-4"/>
+                                        <PhoneIcon className="size-4" />
                                     </a>
                                 </Button>
                             ) : null}
@@ -80,7 +116,7 @@ function App() {
                                     asChild
                                 >
                                     <a href={social.url}>
-                                        <social.icon className="size-6"/>
+                                        <social.icon className="size-6" />
                                     </a>
                                 </Button>
                             ))}
@@ -97,11 +133,16 @@ function App() {
                                     <span className="underline">{RESUME_DATA.contact.tel}</span>
                                 </a>
                             ) : null}
+                            {RESUME_DATA.contact.social.find(s => s.name === "Telegram") ? (
+                                <a href={`${RESUME_DATA.contact.social.find(s => s.name === "Telegram")?.url}`}>
+                                    <span className="underline">{RESUME_DATA.contact.social.find(s => s.name === "Telegram")?.url.replace(/(^\w+:|^)\/\//, '')}</span>
+                                </a>
+                            ) : null}
                         </div>
                     </div>
 
                     <Avatar className="size-28">
-                        <AvatarImage alt={RESUME_DATA.name[language]} src={RESUME_DATA.avatarUrl}/>
+                        <AvatarImage alt={RESUME_DATA.name[language]} src={RESUME_DATA.avatarUrl} />
                         <AvatarFallback>{RESUME_DATA.initials[language]}</AvatarFallback>
                     </Avatar>
                 </div>
@@ -124,19 +165,19 @@ function App() {
                                             </a>
 
                                             <span className="inline-flex gap-x-1">
-                        {work.badges.map((badge) => (
-                            <Badge
-                                variant="secondary"
-                                className="align-middle text-xs print:px-1 print:py-0.5 print:text-[8px] print:leading-tight"
-                                key={badge}
-                            >
-                                {badge}
-                            </Badge>
-                        ))}
-                      </span>
+                                                {work.badges.map((badge) => (
+                                                    <Badge
+                                                        variant="secondary"
+                                                        className="align-middle text-xs print:px-1 print:py-0.5 print:text-[8px] print:leading-tight"
+                                                        key={badge}
+                                                    >
+                                                        {badge}
+                                                    </Badge>
+                                                ))}
+                                            </span>
                                         </h3>
                                         <div className="text-sm tabular-nums text-gray-500">
-                                            {work.start} - {work.end ?? UIText['workTime'][language]}
+                                            {Months[work.start.month][language]} {work.start.year} - {work.end ? `${Months[work.end.month][language]} ${work.end.year}` : UIText['workTime'][language]} • {calculateWorkTime(work.start, work.end)}
                                         </div>
                                     </div>
 
@@ -146,9 +187,18 @@ function App() {
                                 </CardHeader>
                                 <CardContent className="mt-2 text-xs print:text-[10px]">
                                     {work.description[language]}
+                                    {work.responsibilities.length > 0 ? (
+                                        <ul className="mt-2 list-disc list-inside">
+                                            {work.responsibilities.map((item, index) => (
+                                                <li key={index}>
+                                                    {item[language]}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    ) : null}
                                 </CardContent>
                             </Card>
-                        );
+                        )
                     })}
                 </Section>
                 <Section>
@@ -170,7 +220,7 @@ function App() {
                                     {education.degree[language]}
                                 </CardContent>
                             </Card>
-                        );
+                        )
                     })}
                 </Section>
                 <Section>
@@ -181,7 +231,7 @@ function App() {
                                 <Badge className="print:text-[10px]" key={skill}>
                                     {skill}
                                 </Badge>
-                            );
+                            )
                         })}
                     </div>
                 </Section>
@@ -201,7 +251,7 @@ function App() {
                                             tags={project?.techStack ?? []}
                                             link={project?.link?.href}
                                         />
-                                    );
+                                    )
                                 })
                             ) : null}
                         </div>
@@ -230,10 +280,10 @@ function App() {
                 asChild
                 onClick={switchLanguage}
             >
-                <Globe className="size-16"/>
+                <Globe className="size-16" />
             </Button>
         </main>
-    );
+    )
 }
 
-export default App;
+export default App

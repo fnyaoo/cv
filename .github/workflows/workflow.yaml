@@ -41,5 +41,5 @@ jobs:
             tar -xzvf ${{ env.TAR_NAME }}
             rm ${{ env.TAR_NAME }}
 
-            npm ci
-            npm run build
+            docker compose down --rmi all
+            docker compose up -d --build            

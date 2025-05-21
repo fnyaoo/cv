@@ -105,8 +105,8 @@ export const RESUME_DATA: ResumeData = {
           en: "Deployed PostgreSQL clusters with read/write separation using Patroni and Consul, configured Pgpool-II as a proxy for load balancing, and integrated Redis for caching and performance.",
         },
         {
-          ru: "Разработка приложения с UI для автоматической миграции данных между СУБД (Oracle → PostgreSQL) с минимальным участием пользователя.",
-          en: "Developed a UI-based application for automatic data migration between DBMS (Oracle → PostgreSQL) with minimal user involvement.",
+          ru: "Разработка приложения для автоматической миграции данных между СУБД (Oracle → PostgreSQL) с минимальным участием пользователя.",
+          en: "Developed an application for automatic data migration between DBMS (Oracle → PostgreSQL) with minimal user involvement.",
         }
       ]
     },

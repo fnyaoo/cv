@@ -9,8 +9,9 @@ import { Button } from "./components/ui/button"
 import { Card, CardContent, CardHeader } from './components/ui/card'
 import { Section } from './components/ui/section'
 import Months from './data/Months'
-import { RESUME_DATA, WorkExperienceDate } from "./data/resume-data"
+import { RESUME_DATA } from "./data/resume-data"
 import { UIText } from "./data/UIText"
+import { WorkExperienceDate } from './lib/types'
 
 export type Language = "ru" | "en"
 

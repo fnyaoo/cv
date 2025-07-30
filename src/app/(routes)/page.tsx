@@ -1,67 +1,59 @@
+"use client"
+
+import React from "react"
 import { Globe, GlobeIcon, MailIcon, PhoneIcon } from "lucide-react"
-import React from 'react'
-import './App.css'
-import { CommandMenu } from "./components/command-menu"
-import { ProjectCard } from "./components/project-card"
-import { Avatar, AvatarFallback, AvatarImage } from "./components/ui/avatar"
-import { Badge } from "./components/ui/badge"
-import { Button } from "./components/ui/button"
-import { Card, CardContent, CardHeader } from './components/ui/card'
-import { Section } from './components/ui/section'
-import Months from './data/Months'
-import { RESUME_DATA } from "./data/resume-data"
-import { UIText } from "./data/UIText"
-import { WorkExperienceDate } from './lib/types'
+// import { CommandMenu } from "../components/command-menu"
+import { ProjectCard } from "../components/project-card"
+import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar"
+import { Badge } from "../components/ui/badge"
+import { Button } from "../components/ui/button"
+import { Card, CardContent, CardHeader } from "../components/ui/card"
+import { Section } from "../components/ui/section"
+import Months from "../data/Months"
+import { RESUME_DATA } from "../data/resume-data"
+import { UIText } from "../data/UIText"
+import { WorkExperienceDate } from "../lib/types"
 
 export type Language = "ru" | "en"
 
-function App() {
-    if (!localStorage.getItem('lang')) {
-        localStorage.setItem('lang', navigator.language === "ru-RU" ? "ru" : "en")
+export default function Home() {
+  const [language, setLanguage] = React.useState<Language>("en")
+
+  // React.useEffect(() => {
+  //   const savedLang = localStorage.getItem("lang")
+  //   if (savedLang) {
+  //     setLanguage(savedLang as Language)
+  //   } else {
+  //     const lang = navigator.language === "ru-RU" ? "ru" : "en"
+  //     localStorage.setItem("lang", lang)
+  //     setLanguage(lang)
+  //   }
+  // }, [])
+
+  const switchLanguage = () => {
+    const newLang = language === "ru" ? "en" : "ru"
+    // localStorage.setItem("lang", newLang)
+    setLanguage(newLang)
+  }
+
+  const calculateWorkTime = (start: WorkExperienceDate, end: WorkExperienceDate | null): string => {
+    const currentDate = end || { month: new Date().getMonth() + 1, year: new Date().getFullYear() }
+    let totalYears = currentDate.year - start.year
+    let totalMonths = currentDate.month - start.month
+    if (totalMonths < 0) {
+      totalYears -= 1
+      totalMonths += 12
     }
-
-    const [language, setLanguage] = React.useState<Language>(localStorage.getItem('lang') as Language || "en")
-
-    const switchLanguage = () => {
-        const newLanguage: Language = language === "ru" ? "en" : "ru"
-        localStorage.setItem('lang', newLanguage)
-        setLanguage(newLanguage)
-    }
-
-    const calculateWorkTime = (start: WorkExperienceDate, end: WorkExperienceDate | null): string => {
-        const currentDate = end || { month: new Date().getMonth() + 1, year: new Date().getFullYear() }
-
-        const yearsDifference = currentDate.year - start.year
-        const monthsDifference = currentDate.month - start.month
-
-        let totalYears = yearsDifference
-        let totalMonths = monthsDifference
-
-        if (monthsDifference < 0) {
-            totalYears -= 1
-            totalMonths += 12
-        }
-
-        let yearLabel: string
-        let monthLabel: string
-        let conjunction: string
-
-        if (language === 'en') {
-            yearLabel = totalYears === 1 ? 'year' : 'years'
-            monthLabel = totalMonths === 1 ? 'month' : 'months'
-            conjunction = 'and'
-        } else {
-            yearLabel = totalYears === 1 ? 'год' : totalYears > 1 && totalYears < 5 ? 'года' : 'лет'
-            monthLabel = totalMonths === 1 ? 'месяц' : totalMonths > 1 && totalMonths < 5 ? 'месяца' : 'месяцев'
-            conjunction = 'и'
-        }
-
-        if (totalMonths === 0) {
-            return `${totalYears} ${yearLabel}`
-        }
-
-        return `${totalYears} ${yearLabel} ${conjunction} ${totalMonths} ${monthLabel}`
-    }
+    const yearLabel = language === "en"
+      ? totalYears === 1 ? "year" : "years"
+      : totalYears === 1 ? "год" : totalYears > 1 && totalYears < 5 ? "года" : "лет"
+    const monthLabel = language === "en"
+      ? totalMonths === 1 ? "month" : "months"
+      : totalMonths === 1 ? "месяц" : totalMonths > 1 && totalMonths < 5 ? "месяца" : "месяцев"
+    const conjunction = language === "en" ? "and" : "и"
+    if (totalMonths === 0) return `${totalYears} ${yearLabel}`
+    return `${totalYears} ${yearLabel} ${conjunction} ${totalMonths} ${monthLabel}`
+  }
 
     return (
         <main className="container relative mx-auto scroll-my-12 overflow-auto p-4 print:p-12 md:p-16">
@@ -260,7 +252,7 @@ function App() {
                 ) : null}
             </section>
 
-            <CommandMenu
+            {/* <CommandMenu
                 links={[
                     {
                         url: RESUME_DATA.personalWebsiteUrl,
@@ -271,7 +263,7 @@ function App() {
                         title: socialMediaLink.name,
                     })),
                 ]}
-            />
+            /> */}
 
 
             <Button
@@ -286,5 +278,3 @@ function App() {
         </main>
     )
 }
-
-export default App

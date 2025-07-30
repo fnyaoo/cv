@@ -1,4 +1,4 @@
-import { cn } from "../../app/lib/utils";
+import { cn } from "../../lib/utils";
 import React from "react";
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {}

@@ -1,14 +1,14 @@
 "use client"
 
 import React from "react"
-import { Globe, GlobeIcon, MailIcon, PhoneIcon } from "lucide-react"
+// import { Globe, GlobeIcon, MailIcon, PhoneIcon } from "lucide-react"
 // import { CommandMenu } from "../components/command-menu"
-import { ProjectCard } from "../components/project-card"
-import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar"
-import { Badge } from "../components/ui/badge"
+// import { ProjectCard } from "../components/project-card"
+// import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar"
+// import { Badge } from "../components/ui/badge"
 import { Button } from "../components/ui/button"
-import { Card, CardContent, CardHeader } from "../components/ui/card"
-import { Section } from "../components/ui/section"
+// import { Card, CardContent, CardHeader } from "../components/ui/card"
+// import { Section } from "../components/ui/section"
 import Months from "../data/Months"
 import { RESUME_DATA } from "../data/resume-data"
 import { UIText } from "../data/UIText"
@@ -71,7 +71,7 @@ export default function Home() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                <GlobeIcon className="size-3" />
+                                {/* <GlobeIcon className="size-3" /> */}
                                 {RESUME_DATA.location[language]}
                             </a>
                         </p>
@@ -273,7 +273,7 @@ export default function Home() {
                 asChild
                 onClick={switchLanguage}
             >
-                <Globe className="size-16" />
+                {/* <Globe className="size-16" /> */}
             </Button>
         </main>
     )

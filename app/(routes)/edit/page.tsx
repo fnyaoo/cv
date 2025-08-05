@@ -38,9 +38,8 @@ export default function Settings() {
       <JsonEditor
         data={RESUME_DATA}
         onChange={(updated) => {
-          setJsonData(updated)
-          setIsDirty(true)
-          console.log(updated)
+          console.log(updated);
+          
         }}
       />
 

@@ -1,8 +1,9 @@
 "use client"
 
-import React, { useRef, useEffect } from "react"
-import JSONEditor from "jsoneditor"
-import "jsoneditor/dist/jsoneditor.css"
+import React, { useState, useEffect } from "react"
+import CodeMirror from "@uiw/react-codemirror"
+import { json } from "@codemirror/lang-json"
+import { oneDark } from "@codemirror/theme-one-dark"
 
 interface JsonEditorProps {
   data: any
@@ -10,30 +11,46 @@ interface JsonEditorProps {
 }
 
 export function JsonEditor({ data, onChange }: JsonEditorProps) {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const editorRef = useRef<JSONEditor | null>(null)
+  const [code, setCode] = useState(JSON.stringify(data, null, 2))
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    if (!containerRef.current) return
-
-    editorRef.current = new JSONEditor(containerRef.current, {
-      mode: "code",
-      onChangeJSON: (updatedJson: any) => {
-        if (onChange) onChange(updatedJson)
-      },
-
-    })
-
-    editorRef.current.set(data)
-
-    return () => editorRef.current?.destroy()
-  }, [])
-
-  useEffect(() => {
-    if (editorRef.current) {
-      editorRef.current.update(data)
-    }
+    setCode(JSON.stringify(data, null, 2))
   }, [data])
 
-  return <div ref={containerRef} style={{ height: "100vh", width: "100%" }} />
+  const onCodeChange = (value: string) => {
+    setCode(value)
+    try {
+      const parsed = JSON.parse(value)
+      setError(null)
+      if (onChange) onChange(parsed)
+    } catch {
+      setError("Ошибка синтаксиса JSON")
+    }
+  }
+
+  return (
+    <div style={{ height: "100vh", width: "100%", position: "relative" }}>
+      <CodeMirror
+        value={code}
+        height="100%"
+        extensions={[json()]}
+        theme={oneDark}
+        onChange={onCodeChange}
+      />
+      {error && (
+        <div
+          style={{
+            position: "absolute",
+            bottom: 10,
+            left: 10,
+            color: "red",
+            fontWeight: "bold",
+          }}
+        >
+          {error}
+        </div>
+      )}
+    </div>
+  )
 }

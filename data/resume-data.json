@@ -1,7 +1,7 @@
 {
   "name": {
     "ru": "Ефлюков Михаил",
-    "en": "Mikhail Efliukovs"
+    "en": "Mikhail Efliukov"
   },
   "initials": {
     "ru": "EM",
@@ -166,11 +166,12 @@
         "Node.js",
         "Next.js",
         "Codemirror",
-        "OAuth"
+        "OAuth",
+        "Docker"
       ],
       "description": {
-        "ru": "Резюме с возможностью редактрирования",
-        "en": "Resume with edit"
+        "ru": "Веб-приложение-резюме с возможностью редактирования содержимого прямо на сайте",
+        "en": "A web-based resume with on-site content editing"
       },
       "logo": "",
       "link": {

@@ -1,0 +1,10 @@
+services:
+  static-site:
+    build: .
+    container_name: cv
+    ports:
+      - "3002:3002"
+    env_file:
+      - .env.local
+    volumes:
+      - ./data:/app/data

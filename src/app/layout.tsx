@@ -2,7 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
 import { Metadata } from 'next'
 
-import json from "../data/resume-data.json"
+import json from "@/data/resume-data.json"
 import { ResumeData } from '@/src/app/types/types'
 import { Providers } from './providers/Providers'
 

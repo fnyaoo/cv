@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useState } from "react"
-import json from "../../../data/resume-data.json"
+import json from "@/data/resume-data.json"
 import { ResumeData } from '@/src/app/types/types'
 import { Button } from '@/src/app/components/ui/button'
 import { useLanguage } from '@/src/app/providers/LanguageProvider'
@@ -65,7 +65,7 @@ export default function Settings() {
 
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [isDirty, jsonData, language]) // Добавляем зависимости
+  }, [isDirty, jsonData, language,  saveJson])
 
   return (
     <main>

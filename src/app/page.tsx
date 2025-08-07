@@ -2,7 +2,7 @@
 
 import React from "react"
 import Months from "./lib/Months"
-import json from "../data/resume-data.json"
+import json from "@/data/resume-data.json"
 import { UIText } from "./lib/UIText"
 
 import { Button } from '@/src/app/components/ui/button'

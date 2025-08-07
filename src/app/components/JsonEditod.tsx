@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react"
 import CodeMirror from "@uiw/react-codemirror"
 import { json } from "@codemirror/lang-json"
-// import { oneDark } from "@codemirror/theme-one-dark"
 
 interface JsonEditorProps {
   data: any
@@ -35,7 +34,6 @@ export function JsonEditor({ data, onChange }: JsonEditorProps) {
         value={code}
         height="100%"
         extensions={[json()]}
-        // theme={oneDark}
         onChange={onCodeChange}
       />
       {error && (

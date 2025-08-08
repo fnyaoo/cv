@@ -1,13 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
 import { Metadata } from 'next'
-
-import json from "@/data/resume-data.json"
-import { ResumeData } from '@/src/app/types/types'
 import { Providers } from './providers/Providers'
-
-
-const RESUME_DATA: ResumeData = json
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,7 +14,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: RESUME_DATA.name.en,
+  title: '⠀',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

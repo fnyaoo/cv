@@ -55,8 +55,12 @@ export const UIText = {
     ru: "Войти",
     en: "Sign in"
   },
-  edit:{
+  edit: {
     ru: "Редактировать",
     en: "Edit"
+  },
+  unsavedConfirm: {
+    ru: "Есть несохранённые изменения. Покинуть страницу?",
+    en: "You have unsaved changes. Leave the page?",
   }
 }

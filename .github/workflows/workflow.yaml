@@ -9,37 +9,26 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
-    env:
-      PROJECT_FOLDER: /root/${{ github.event.repository.name }}
-      TAR_NAME: deployment.tar.gz
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v4
 
-      - name: Create deployment artifact
-        run: |
-          tar --exclude='.git' --exclude='.github' --exclude='.gitignore' -czvf ${{ env.TAR_NAME }} *          
-
-      - name: Upload deployment package to server
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          source: ${{ env.TAR_NAME }}
-          target: ${{ env.PROJECT_FOLDER }}
-      - name: Deploy application and start services
+      - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            mkdir -p ${{ env.PROJECT_FOLDER }}
-            cd ${{ env.PROJECT_FOLDER }}
+            PROJECT_FOLDER=/root/${{ github.event.repository.name }}
 
-            tar -xzvf ${{ env.TAR_NAME }}
-            rm ${{ env.TAR_NAME }}
+            if [ ! -d "$PROJECT_FOLDER/.git" ]; then
+              git clone https://github.com/${{ github.repository }} $PROJECT_FOLDER
+            fi
+
+            cd $PROJECT_FOLDER
+            git reset --hard
+            git pull origin master
 
             docker compose down --rmi all
-            docker compose up -d --build            
+            docker compose up -d --build

@@ -8,3 +8,4 @@ services:
       - .env.local
     volumes:
       - ./data:/app/data
+    restart: unless-stopped

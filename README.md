@@ -9,8 +9,8 @@ Supports authentication via GitHub and direct editing of data on the site.
 
 ### Features
 - View your resume as a modern single-page website  
-- Sign in with **GitHub**  
-- Edit resume content through a built-in JSON editor  
+- Sign in with **GitHub** `/login`  
+- Edit resume content through a built-in JSON editor `/edit`  
 
 ### Tech Stack
 - **Next.js** — React framework  
